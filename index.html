@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Records - Collection de Vinyles Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+ 
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+ 
+        header {
+            background: linear-gradient(45deg, #2c1810, #1a0f0a);
+            color: #f5f5f5;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+ 
+        .search-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+ 
+        .search-container input {
+            padding: 10px;
+            width: 250px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+ 
+        .search-container input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+ 
+        .search-container input:focus {
+            outline: none;
+            background: rgba(255,255,255,0.2);
+        }
+ 
+        header::before {
+            content: '♪';
+            position: absolute;
+            font-size: 10rem;
+            opacity: 0.05;
+            top: -30px;
+            left: -30px;
+            animation: rotate 15s linear infinite;
+        }
+ 
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: pulse 3s infinite;
+            letter-spacing: 2px;
+        }
+ 
+        nav {
+            background: linear-gradient(45deg, #1a0f0a, #0d0707);
+            padding: 1.2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+ 
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+        }
+ 
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 0.7rem 2rem;
+            border-radius: 3px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+ 
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: 0.5s;
+        }
+ 
+        nav a:hover::before {
+            left: 100%;
+        }
+ 
+        nav a:hover {
+            background-color: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+ 
+        .page {
+            display: none;
+        }
+ 
+        .page.active {
+            display: block;
+        }
+ 
+        .hero {
+            background-image: url('vinyl-background.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f5f5f5;
+            text-align: center;
+            position: relative;
+        }
+ 
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            animation: pulseOverlay 4s infinite;
+        }
+ 
+        .hero div {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1.8s ease-out;
+        }
+ 
+        .hero h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+ 
+        .products {
+            padding: 6rem 4rem;
+            background: #1d1d1d;
+        }
+ 
+        .category {
+            margin-bottom: 7rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.8s ease forwards;
+        }
+ 
+        .category h2 {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #d4af37;
+            font-size: 2.8em;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+ 
+        .category h2:hover {
+            transform: scale(1.05);
+        }
+ 
+        .category h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 2px;
+            background: #d4af37;
+            margin: 20px auto;
+            animation: expandWidth 1.2s ease-out;
+        }
+ 
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 4rem;
+        }
+ 
+        .product-card {
+            border: none;
+            padding: 2.5rem;
+            text-align: center;
+            background: #252525;
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+ 
+        .product-card::before {
+            content: '♫';
+            position: absolute;
+            top: -25px;
+            right: -25px;
+            font-size: 6rem;
+            opacity: 0.05;
+            transform: rotate(-45deg);
+        }
+ 
+        .product-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+            background: #2a2a2a;
+        }
+ 
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            transition: transform 0.5s ease;
+            animation: spin 25s linear infinite paused;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+ 
+        .product-card:hover img {
+            animation-play-state: running;
+        }
+ 
+        .product-card h3 {
+            font-family: 'Playfair Display', serif;
+            margin: 1.5rem 0;
+            font-size: 1.4em;
+            color: #d4af37;
+        }
+ 
+        .product-card p {
+            color: #bbb;
+            margin: 0.5rem 0;
+            font-size: 0.95em;
+        }
+ 
+        .product-card button {
+            background: linear-gradient(45deg, #d4af37, #b4941f);
+            color: #1a1a1a;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 3px;
+            margin-top: 2rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.9em;
+        }
+ 
+        .product-card button:hover {
+            background: linear-gradient(45deg, #b4941f, #d4af37);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(212,175,55,0.3);
+        }
+ 
+        footer {
+            background: linear-gradient(45deg, #1a0f0a, #0d0707);
+            color: #bbb;
+            text-align: center;
+            padding: 4rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+ 
+        .cart-page {
+            padding: 4rem;
+            background: #1d1d1d;
+        }
+ 
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 2rem;
+            background: #252525;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+        }
+ 
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 2rem;
+        }
+ 
+        .cart-total {
+            text-align: right;
+            padding: 2rem;
+            font-size: 1.2em;
+            color: #d4af37;
+        }
+ 
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+ 
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+ 
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+ 
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+ 
+        @keyframes pulseOverlay {
+            0% { opacity: 0.6; }
+            50% { opacity: 0.5; }
+            100% { opacity: 0.6; }
+        }
+ 
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+ 
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 80px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="search-container">
+            <input type="text" placeholder="Rechercher un vinyle..." onkeyup="searchVinyl(this.value)">
+        </div>
+        <h1>Cool Records</h1>
+        <p>Collection exclusive de vinyles d'exception</p>
+    </header>
+ 
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showPage('accueil')">Accueil</a></li>
+            <li><a href="#" onclick="showPage('catalogue')">Collection</a></li>
+            <li><a href="#" onclick="showPage('nouveautes')">Nouveautés</a></li>
+            <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+            <li><a href="#" onclick="showPage('panier')">Panier</a></li>
+        </ul>
+    </nav>
+ 
+    <div id="accueil" class="page active">
+        <section class="hero">
+            <div>
+                <h2>L'Art du Vinyle</h2>
+                <p>Une sélection minutieuse des plus beaux vinyles vintage et contemporains</p>
+            </div>
+        </section>
+       
+        <section class="products">
+            <div class="category">
+                <h2>Notre Sélection</h2>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="vinyl1.jpg" alt="Led Zeppelin IV">
+                        <h3>Led Zeppelin IV</h3>
+                        <p>Rock Légendaire</p>
+                        <p>Prix: 245€</p>
+                        <button onclick="addToCart('Led Zeppelin IV', 245)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="vinyl3.jpg" alt="Miles Davis - Kind of Blue">
+                        <h3>Kind of Blue</h3>
+                        <p>Jazz Intemporel</p>
+                        <p>Prix: 335€</p>
+                        <button onclick="addToCart('Kind of Blue', 335)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="vinyl5.jpg" alt="Marvin Gaye">
+                        <h3>What's Going On</h3>
+                        <p>Soul & Funk</p>
+                        <p>Prix: 250€</p>
+                        <button onclick="addToCart('What\'s Going On', 250)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="vinyl8.jpg" alt="Mozart">
+                        <h3>Les Symphonies</h3>
+                        <p>Classique</p>
+                        <p>Prix: 180€</p>
+                        <button onclick="addToCart('Mozart Symphonies', 180)">Réserver</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+ 
+    <div id="catalogue" class="page">
+        <section class="products">
+            <div class="category">
+                <h2 onclick="showCategory('rock')">Rock Légendaire</h2>
+                <div id="rock" class="product-grid">
+                    <div class="product-card">
+                        <img src="vinyl1.jpg" alt="Led Zeppelin IV - Edition Originale">
+                        <h3>Led Zeppelin IV</h3>
+                        <p>Edition Originale de 1971</p>
+                        <p>État: Excellent - Pressage UK</p>
+                        <p>Prix: 245€</p>
+                        <button onclick="addToCart('Led Zeppelin IV', 245)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="vinyl2.jpg" alt="Pink Floyd - Dark Side of the Moon">
+                        <h3>Dark Side of the Moon</h3>
+                        <p>Réédition Audiophile 180g</p>
+                        <p>État: Neuf sous blister</p>
+                        <p>Prix: 155€</p>
+                        <button onclick="addToCart('Dark Side of the Moon', 155)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="vinyl9.jpg" alt="The Beatles - Abbey Road">
+                        <h3>Abbey Road</h3>
+                        <p>Pressage Original UK</p>
+                        <p>État: Très bon</p>
+                        <p>Prix: 290€</p>
+                        <button onclick="addToCart('Abbey Road', 290)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="vinyl10.jpg" alt="Queen - A Night at the Opera">
+                        <h3>A Night at the Opera</h3>
+                        <p>Edition Deluxe</p>
+                        <p>État: Excellent</p>
+                        <p>Prix: 200€</p>
+                        <button onclick="addToCart('A Night at the Opera', 200)">Réserver</button>
+                    </div>
+                </div>
+            </div>
+ 
+            <div class="category">
+                <h2 onclick="showCategory('jazz')">Jazz Intemporel</h2>
+                <div id="jazz" class="product-grid">
+                    <div class="product-card">
+                        <img src="vinyl3.jpg" alt="Miles Davis - Kind of Blue">
+                        <h3>Kind of Blue</h3>
+                        <p>Pressage Japonais Original</p>
+                        <p>État: Très bon - Obi intact</p>
+                        <p>Prix: 335€</p>
+                        <button onclick="addToCart('Kind of Blue', 335)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="vinyl4.jpg" alt="John Coltrane - A Love Supreme">
+                        <h3>A Love Supreme</h3>
+                        <p>Impulse! Records - Première Presse</p>
+                        <p>État: Collection - Mint</p>
+                        <p>Prix: 440€</p>
+                        <button onclick="addToCart('A Love Supreme', 440)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="vinyl11.jpg" alt="Charlie Parker - Bird">
+                        <h3>Bird</h3>
+                        <p>Verve Records Original</p>
+                        <p>État: Très bon</p>
+                        <p>Prix: 380€</p>
+                        <button onclick="addToCart('Bird', 380)">Réserver</button>
+                    </div>
+                </div>
+            </div>
+ 
+            <div class="category">
+                <h2 onclick="showCategory('soul')">Soul & Funk Essentiels</h2>
+                <div id="soul" class="product-grid">
+                    <div class="product-card">
+                        <img src="vinyl5.jpg" alt="Marvin Gaye - What's Going On">
+                        <h3>What's Going On</h3>
+                        <p>Motown Records - 1971</p>
+                        <p>État: Excellent - Pochette d'origine</p>
+                        <p>Prix: 250€</p>
+                        <button onclick="addToCart('What\'s Going On', 250)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="vinyl6.jpg" alt="Stevie Wonder - Songs in the Key of Life">
+                        <h3>Songs in the Key of Life</h3>
+                        <p>Double LP avec Livret Original</p>
+                        <p>État: Très bon - Complet</p>
+                        <p>Prix: 238€</p>
+                        <button onclick="addToCart('Songs in the Key of Life', 238)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="vinyl12.jpg" alt="James Brown - Live at the Apollo">
+                        <h3>Live at the Apollo</h3>
+                        <p>King Records Original</p>
+                        <p>État: Excellent</p>
+                        <p>Prix: 290€</p>
+                        <button onclick="addToCart('Live at the Apollo', 290)">Réserver</button>
+                    </div>
+                </div>
+            </div>
+ 
+            <div class="category">
+                <h2 onclick="showCategory('rap')">Rap Légendaire</h2>
+                <div id="rap" class="product-grid">
+                    <div class="product-card">
+                        <img src="vinyl14.jpg" alt="Nas - Illmatic">
+                        <h3>Nas - Illmatic</h3>
+                        <p>Columbia Records - 1994</p>
+                        <p>État: Excellent - Première Presse</p>
+                        <p>Prix: 395€</p>
+                        <button onclick="addToCart('Illmatic', 395)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="vinyl15.jpg" alt="Dr. Dre - The Chronic">
+                        <h3>Dr. Dre - The Chronic</h3>
+                        <p>Death Row Records Original</p>
+                        <p>État: Très bon</p>
+                        <p>Prix: 450€</p>
+                        <button onclick="addToCart('The Chronic', 450)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="vinyl16.jpg" alt="Wu-Tang Clan - Enter the Wu-Tang">
+                        <h3>Enter the Wu-Tang</h3>
+                        <p>RCA Records - Edition Rare</p>
+                        <p>État: Mint</p>
+                        <p>Prix: 420€</p>
+                        <button onclick="addToCart('Enter the Wu-Tang', 420)">Réserver</button>
+                    </div>
+                </div>
+            </div>
+ 
+            <div class="category">
+                <h2 onclick="showCategory('classique')">Classique</h2>
+                <div id="classique" class="product-grid">
+                    <div class="product-card">
+                        <img src="vinyl8.jpg" alt="Mozart - Les Symphonies">
+                        <h3>Mozart - Les Symphonies</h3>
+                        <p>Deutsche Grammophon</p>
+                        <p>État: Comme neuf</p>
+                        <p>Prix: 180€</p>
+                        <button onclick="addToCart('Mozart Symphonies', 180)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="vinyl13.jpg" alt="Beethoven - 9ème Symphonie">
+                        <h3>Beethoven - 9ème Symphonie</h3>
+                        <p>Edition Collector</p>
+                        <p>État: Excellent</p>
+                        <p>Prix: 220€</p>
+                        <button onclick="addToCart('Beethoven 9ème', 220)">Réserver</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+ 
+    <div id="nouveautes" class="page">
+        <section class="products">
+            <div class="category">
+                <h2>Dernières Acquisitions</h2>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="vinyl7.jpg" alt="Nouveauté 1">
+                        <h3>Nouvelle Acquisition</h3>
+                        <p>Détails à venir</p>
+                        <button>En savoir plus</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+ 
+    <div id="contact" class="page">
+        <section class="products">
+            <div class="category">
+                <h2>Contactez-nous</h2>
+                <div style="text-align: center; padding: 2rem;">
+                    <p>Email: collection@coolrecords.fr</p>
+                    <p>Téléphone: +33 (0)1 23 45 67 89</p>
+                    <p>Adresse: 17 rue des Vinyles, 75001 Paris</p>
+                </div>
+            </div>
+        </section>
+    </div>
+ 
+    <div id="panier" class="page">
+        <section class="cart-page">
+            <div class="category">
+                <h2>Votre Panier</h2>
+                <div id="cart-items">
+                    <!-- Les articles du panier seront ajoutés ici dynamiquement -->
+                </div>
+                <div class="cart-total">
+                    <p>Total: <span id="cart-total">0</span>€</p>
+                    <button onclick="checkout()" style="margin-top: 2rem;">Finaliser la commande</button>
+                </div>
+            </div>
+        </section>
+    </div>
+ 
+    <footer>
+        <p>&copy; 2025 Cool Records - L'excellence du vinyle</p>
+        <p>Contact: collection@coolrecords.fr | +33 (0)1 23 45 67 89</p>
+        <p>17 rue des Vinyles, 75001 Paris</p>
+    </footer>
+ 
+    <script>
+        let cart = [];
+        let total = 0;
+ 
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+ 
+        function showCategory(categoryId) {
+            const selectedCategory = document.getElementById(categoryId);
+            if (selectedCategory.style.display === 'none' || selectedCategory.style.display === '') {
+                selectedCategory.style.display = 'grid';
+            } else {
+                selectedCategory.style.display = 'none';
+            }
+        }
+ 
+        function addToCart(title, price) {
+            cart.push({title, price});
+            total += price;
+            updateCart();
+            showPage('panier');
+        }
+ 
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+            cart.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <h3>${item.title}</h3>
+                    <p>${item.price}€</p>
+                `;
+                cartItems.appendChild(cartItem);
+            });
+            document.getElementById('cart-total').textContent = total;
+        }
+ 
+        function checkout() {
+            alert('Merci pour votre commande ! Nous vous contacterons rapidement pour finaliser la transaction.');
+            cart = [];
+            total = 0;
+            updateCart();
+        }
+ 
+        function searchVinyl(query) {
+            query = query.toLowerCase();
+            const productCards = document.querySelectorAll('.product-card');
+           
+            productCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+               
+                if (title.includes(query) || description.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
