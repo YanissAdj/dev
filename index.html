@@ -3,8 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
     <title>Cool Records - Collection de Vinyles Premium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href=
+"https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -301,25 +308,210 @@
         .cart-item {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             padding: 2rem;
             background: #252525;
             margin-bottom: 1rem;
             border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
         }
- 
+
+        .cart-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
         .cart-item img {
             width: 100px;
             height: 100px;
             object-fit: cover;
             border-radius: 4px;
             margin-right: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
- 
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item h3 {
+            color: #d4af37;
+            margin-bottom: 0.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .cart-item-price {
+            color: #bbb;
+            font-size: 1.1em;
+            margin: 0.5rem 0;
+        }
+
+        .cart-item-subtotal {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.2em;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .quantity-controls button {
+            background: #d4af37;
+            color: #1a1a1a;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-controls button:hover {
+            background: #b4941f;
+            transform: scale(1.1);
+        }
+
+        .quantity-controls span {
+            min-width: 30px;
+            text-align: center;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .edit-item {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .edit-item:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .remove-item {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .remove-item:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+        }
+
+        .cart-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 2rem;
+            background: #252525;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cart-actions button {
+            background: linear-gradient(45deg, #d4af37, #b4941f);
+            color: #1a1a1a;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cart-actions button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212,175,55,0.3);
+        }
+
         .cart-total {
             text-align: right;
             padding: 2rem;
-            font-size: 1.2em;
+            background: #252525;
+            border-radius: 8px;
+            margin-top: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cart-total p {
+            font-size: 1.4em;
             color: #d4af37;
+            margin-bottom: 1rem;
+        }
+
+        .cart-total button {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cart-total button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76,175,80,0.3);
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 4rem;
+            color: #bbb;
+        }
+
+        .empty-cart p {
+            font-size: 1.2em;
+            margin-bottom: 2rem;
+        }
+
+        .empty-cart button {
+            background: linear-gradient(45deg, #d4af37, #b4941f);
+            color: #1a1a1a;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .empty-cart button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212,175,55,0.3);
         }
  
         @keyframes fadeInUp {
@@ -366,10 +558,120 @@
             from { width: 0; }
             to { width: 80px; }
         }
+        .legal-links {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .legal-links a {
+            color: #d4af37;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .legal-links a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .legal-page {
+            padding: 4rem;
+            background: #1d1d1d;
+        }
+
+        .legal-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #252525;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .legal-content h3 {
+            color: #d4af37;
+            margin: 2rem 0 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .legal-content p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .legal-content ul {
+            list-style-position: inside;
+            margin-bottom: 1rem;
+        }
+
+        .legal-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 26, 0.95);
+            padding: 1rem;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-top: 1px solid #d4af37;
+        }
+
+        .cookie-banner p {
+            margin: 0;
+            flex: 1;
+            padding-right: 2rem;
+        }
+
+        .cookie-banner button {
+            background: #d4af37;
+            color: #1a1a1a;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cookie-banner button:hover {
+            background: #b4941f;
+        }
+
+        .cookie-banner .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .cookie-banner .accept-all {
+            background: #4CAF50;
+        }
+
+        .cookie-banner .accept-all:hover {
+            background: #45a049;
+        }
+
+        .cookie-banner .customize {
+            background: #666;
+        }
+
+        .cookie-banner .customize:hover {
+            background: #555;
+        }
+        
     </style>
 </head>
 <body>
+    
     <header>
+        
         <div class="search-container">
             <input type="text" placeholder="Rechercher un vinyle..." onkeyup="searchVinyl(this.value)">
         </div>
@@ -610,6 +912,122 @@
                     <p>Email: collection@coolrecords.fr</p>
                     <p>Téléphone: +33 (0)1 23 45 67 89</p>
                     <p>Adresse: 17 rue des Vinyles, 75001 Paris</p>
+                    <div class="legal-links">
+                        <a href="#" onclick="showPage('mentions-legales')">Mentions Légales</a>
+                        <a href="#" onclick="showPage('politique-confidentialite')">Politique de Confidentialité</a>
+                        <a href="#" onclick="showPage('cgv')">Conditions Générales de Vente</a>
+                        <a href="#" onclick="showPage('cookies')">Gestion des Cookies</a>
+                        <a href="#" onclick="showPage('securite')">Sécurité</a>
+                    </div>
+                    <div id="mentions-legales" class="page">
+                        <section class="legal-page">
+                            <div class="category">
+                                <h2>Mentions Légales</h2>
+                                <div class="legal-content">
+                                    <h3>1. Informations légales</h3>
+                                    <p>Cool Records est une société par actions simplifiée (SAS) au capital de 10 000€</p>
+                                    <p>RCS Paris B 123 456 789</p>
+                                    <p>Siège social : 17 rue des Vinyles, 75001 Paris</p>
+                                    
+                                    <h3>2. Protection des données personnelles</h3>
+                                    <p>Conformément au Règlement Général sur la Protection des Données (RGPD), Cool Records s'engage à protéger vos données personnelles.</p>
+                                    <p>Délégué à la protection des données : dpo@coolrecords.fr</p>
+                                    
+                                    <h3>3. Droits des utilisateurs</h3>
+                                    <p>Conformément à la loi "Informatique et Libertés" et au RGPD, vous disposez des droits suivants :</p>
+                                    <ul>
+                                        <li>Droit d'accès à vos données</li>
+                                        <li>Droit de rectification</li>
+                                        <li>Droit à l'effacement</li>
+                                        <li>Droit à la limitation du traitement</li>
+                                        <li>Droit à la portabilité des données</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                
+                    <div id="politique-confidentialite" class="page">
+                        <section class="legal-page">
+                            <div class="category">
+                                <h2>Politique de Confidentialité</h2>
+                                <div class="legal-content">
+                                    <h3>1. Collecte des données</h3>
+                                    <p>Nous collectons les données suivantes :</p>
+                                    <ul>
+                                        <li>Nom et prénom</li>
+                                        <li>Adresse e-mail</li>
+                                        <li>Adresse de livraison</li>
+                                        <li>Données de paiement (sécurisées)</li>
+                                    </ul>
+                
+                                    <h3>2. Utilisation des données</h3>
+                                    <p>Vos données sont utilisées pour :</p>
+                                    <ul>
+                                        <li>Traiter vos commandes</li>
+                                        <li>Vous envoyer des informations sur votre commande</li>
+                                        <li>Améliorer nos services</li>
+                                        <li>Respecter nos obligations légales</li>
+                                    </ul>
+                
+                                    <h3>3. Sécurité</h3>
+                                    <p>Nous mettons en œuvre des mesures de sécurité appropriées pour protéger vos données personnelles.</p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                
+                    <div id="cgv" class="page">
+                        <section class="legal-page">
+                            <div class="category">
+                                <h2>Conditions Générales de Vente</h2>
+                                <div class="legal-content">
+                                    <h3>1. Prix et paiement</h3>
+                                    <p>Les prix sont indiqués en euros TTC. Le paiement est exigible à la commande.</p>
+                
+                                    <h3>2. Livraison</h3>
+                                    <p>Les délais de livraison sont indicatifs. En cas de retard, nous vous informerons par email.</p>
+                
+                                    <h3>3. Droit de rétractation</h3>
+                                    <p>Vous disposez d'un délai de 14 jours pour exercer votre droit de rétractation.</p>
+                
+                                    <h3>4. Garantie</h3>
+                                    <p>Nos vinyles sont garantis conformes à leur description et en parfait état.</p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                
+                    <div id="cookies" class="page">
+                        <section class="legal-page">
+                            <div class="category">
+                                <h2>Gestion des Cookies</h2>
+                                <div class="legal-content">
+                                    <h3>1. Qu'est-ce qu'un cookie ?</h3>
+                                    <p>Un cookie est un petit fichier texte stocké sur votre ordinateur lors de la visite d'un site.</p>
+                
+                                    <h3>2. Types de cookies utilisés</h3>
+                                    <ul>
+                                        <li>Cookies essentiels (nécessaires au fonctionnement du site)</li>
+                                        <li>Cookies de performance (analyse d'audience)</li>
+                                        <li>Cookies de fonctionnalité (préférences utilisateur)</li>
+                                        <li>Cookies publicitaires (personnalisation des publicités)</li>
+                                    </ul>
+                
+                                    <h3>3. Gestion des cookies</h3>
+                                    <p>Vous pouvez configurer votre navigateur pour refuser les cookies. Cependant, certaines fonctionnalités du site pourraient ne pas fonctionner correctement.</p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                
+                    <div class="cookie-banner" id="cookie-banner">
+                        <p>Nous utilisons des cookies pour améliorer votre expérience sur notre site. En continuant à naviguer, vous acceptez notre utilisation des cookies.</p>
+                        <div class="cookie-buttons">
+                            <button class="accept-all" onclick="acceptAllCookies()">Tout accepter</button>
+                            <button class="customize" onclick="showPage('cookies')">Personnaliser</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -626,6 +1044,59 @@
                     <p>Total: <span id="cart-total">0</span>€</p>
                     <button onclick="checkout()" style="margin-top: 2rem;">Finaliser la commande</button>
                 </div>
+                <div id="securite" class="page">
+                    <section class="legal-page">
+                        <div class="category">
+                            <h2>Politique de Sécurité</h2>
+                            <div class="legal-content">
+                                <h3>1. Protection contre les attaques XSS</h3>
+                                <p>Nous avons mis en place plusieurs mesures pour protéger notre site contre les attaques XSS (Cross-Site Scripting) :</p>
+                                <ul>
+                                    <li>Échappement automatique des données utilisateur</li>
+                                    <li>Validation stricte des entrées</li>
+                                    <li>Content Security Policy (CSP) active</li>
+                                    <li>Protection XSS du navigateur activée</li>
+                                </ul>
+            
+                                <h3>2. Protection contre les attaques CSRF</h3>
+                                <p>Pour prévenir les attaques CSRF (Cross-Site Request Forgery), nous utilisons :</p>
+                                <ul>
+                                    <li>Tokens CSRF pour toutes les requêtes POST</li>
+                                    <li>Validation de l'origine des requêtes</li>
+                                    <li>Cookies sécurisés avec l'attribut SameSite</li>
+                                </ul>
+            
+                                <h3>3. Chiffrement des données</h3>
+                                <p>Vos données sensibles sont protégées par :</p>
+                                <ul>
+                                    <li>Chiffrement TLS 1.3 pour toutes les communications</li>
+                                    <li>Hachage sécurisé des mots de passe avec bcrypt</li>
+                                    <li>Chiffrement des données sensibles en base de données</li>
+                                    <li>Stockage sécurisé des informations de paiement</li>
+                                </ul>
+            
+                                <h3>4. Connexions HTTPS</h3>
+                                <p>Notre site utilise exclusivement HTTPS pour garantir :</p>
+                                <ul>
+                                    <li>La confidentialité des données transmises</li>
+                                    <li>L'authenticité du site</li>
+                                    <li>L'intégrité des communications</li>
+                                    <li>La protection contre les attaques de type "man-in-the-middle"</li>
+                                </ul>
+            
+                                <h3>5. Autres mesures de sécurité</h3>
+                                <ul>
+                                    <li>Protection contre les injections SQL</li>
+                                    <li>Limitation des tentatives de connexion</li>
+                                    <li>Surveillance des activités suspectes</li>
+                                    <li>Mises à jour régulières des systèmes de sécurité</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                
+                </div>
             </div>
         </section>
     </div>
@@ -637,7 +1108,72 @@
     </footer>
  
     <script>
-        let cart = [];
+    function editCartItem(index) {
+        const item = cart[index];
+        if (confirm(`Voulez-vous modifier l'article "${item.title}" ? Vous serez redirigé vers l'accueil pour choisir un nouvel article.`)) {
+            // Supprimer l'article actuel et mettre à jour le total
+            total -= item.subtotal;
+            cart.splice(index, 1);
+            updateCart();
+            // Rediriger vers l'accueil
+            showPage('accueil');
+            // Stocker l'index de l'article à modifier
+            localStorage.setItem('editingItemIndex', index);
+            // Filtrer les articles pour mettre en évidence celui qui correspond
+            highlightMatchingItems(item.title);
+        }
+    }
+    function highlightMatchingItems(searchTitle) {
+        const productCards = document.querySelectorAll('.product-card');
+        searchTitle = searchTitle.toLowerCase();
+        
+        productCards.forEach(card => {
+            const title = card.querySelector('h3').textContent.toLowerCase();
+            const price = parseFloat(card.querySelector('p:last-child').textContent.replace('Prix: ', '').replace('€', ''));
+            const button = card.querySelector('button');
+            
+            // Sauvegarder la fonction originale du bouton
+            const originalOnClick = button.onclick;
+            
+            // Modifier le bouton pour tous les articles
+            button.textContent = 'Remplacer cet article';
+            button.onclick = function() {
+                replaceCartItem(title, price);
+            };
+        });
+    }
+    function replaceCartItem(newTitle, newPrice) {
+        const editingIndex = parseInt(localStorage.getItem('editingItemIndex'));
+        if (!isNaN(editingIndex)) {
+            // Ajouter le nouvel article à la position de l'ancien
+            cart.splice(editingIndex, 0, {
+                title: newTitle,
+                price: newPrice,
+                quantity: 1,
+                subtotal: newPrice
+            });
+            total += newPrice;
+            localStorage.removeItem('editingItemIndex');
+            updateCart();
+            showPage('panier');
+            resetProductCards();
+        }
+    }
+    function resetProductCards() {
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach(card => {
+            const button = card.querySelector('button');
+            button.textContent = 'Réserver';
+            button.onclick = function() {
+                const title = card.querySelector('h3').textContent;
+                const price = parseFloat(card.querySelector('p:last-child').textContent.replace('Prix: ', '').replace('€', ''));
+                addToCart(title, price);
+            };
+        });
+    }
+
+        
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
         let total = 0;
  
         function showPage(pageId) {
@@ -657,7 +1193,13 @@
         }
  
         function addToCart(title, price) {
-            cart.push({title, price});
+            const existingItem = cart.find(item => item.title === title);
+            if (existingItem) {
+                existingItem.quantity += 1;
+                existingItem.subtotal += price;
+            } else {
+                cart.push({ title, price, quantity: 1, subtotal: price });
+            }
             total += price;
             updateCart();
             showPage('panier');
@@ -666,16 +1208,46 @@
         function updateCart() {
             const cartItems = document.getElementById('cart-items');
             cartItems.innerHTML = '';
-            cart.forEach(item => {
+            cart.forEach((item, index) => {
                 const cartItem = document.createElement('div');
                 cartItem.className = 'cart-item';
                 cartItem.innerHTML = `
                     <h3>${item.title}</h3>
                     <p>${item.price}€</p>
+                    <div class="quantity-controls">
+                        <button onclick="changeQuantity(${index}, -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="changeQuantity(${index}, 1)">+</button>
+                    </div>
+                    <p class="cart-item-subtotal">${item.subtotal}€</p>
+                    <div class="cart-item-actions">
+                        <button class="edit-item" onclick="editCartItem(${index})">Modifier</button>
+                        <button class="remove-item" onclick="removeCartItem(${index})">Supprimer</button>
+                    </div>
                 `;
                 cartItems.appendChild(cartItem);
             });
             document.getElementById('cart-total').textContent = total;
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+ 
+        function changeQuantity(index, delta) {
+            const item = cart[index];
+            item.quantity += delta;
+            item.subtotal += item.price * delta;
+            total += item.price * delta;
+            if (item.quantity <= 0) {
+                total -= item.price * item.quantity;
+                cart.splice(index, 1);
+            }
+            updateCart();
+        }
+ 
+        function removeCartItem(index) {
+            const item = cart[index];
+            total -= item.subtotal;
+            cart.splice(index, 1);
+            updateCart();
         }
  
         function checkout() {
@@ -685,6 +1257,7 @@
             updateCart();
         }
  
+        window.addEventListener('load', updateCart);
         function searchVinyl(query) {
             query = query.toLowerCase();
             const productCards = document.querySelectorAll('.product-card');
@@ -700,6 +1273,25 @@
                 }
             });
         }
+         // Gestion des cookies
+         function checkCookieConsent() {
+            return localStorage.getItem('cookieConsent') !== null;
+        }
+
+        function showCookieBanner() {
+            if (!checkCookieConsent()) {
+                document.getElementById('cookie-banner').style.display = 'flex';
+            }
+        }
+
+        function acceptAllCookies() {
+            localStorage.setItem('cookieConsent', 'all');
+            document.getElementById('cookie-banner').style.display = 'none';
+        }
+
+        // Afficher la bannière de cookies au chargement de la page
+        window.addEventListener('load', showCookieBanner);
     </script>
+    
 </body>
 </html>
