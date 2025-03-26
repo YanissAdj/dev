@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Records - Panier</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="search-container">
+            <input type="text" placeholder="Rechercher un vinyle..." onkeyup="searchVinyl(this.value)">
+        </div>
+        <h1>Cool Records</h1>
+        <p>Collection exclusive de vinyles d'exception</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="accueil.html">Accueil</a></li>
+            <li><a href="collection.html">Collection</a></li>
+            <li><a href="nouveautes.html">Nouveautés</a></li>
+            <li><a href="panier.html">Panier</a></li>
+            <li><a href="connexion.html">Connexion</a></li>
+            
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="page active">
+        <section class="cart-page">
+            <div class="category">
+                <h2>Votre Panier</h2>
+                <div id="cart-items">
+                    <!-- Les articles du panier seront ajoutés ici dynamiquement -->
+                </div>
+                <div class="cart-total">
+                    <p>Total: <span id="cart-total">0</span>€</p>
+                    <button onclick="checkout()" style="margin-top: 2rem;">Finaliser la commande</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Cool Records - L'excellence du vinyle</p>
+        <p>Contact: collection@coolrecords.fr | +33 (0)1 23 45 67 89</p>
+        <p>17 rue des Vinyles, 75001 Paris</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let total = cart.reduce((sum, item) => sum + item.subtotal, 0);
+
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+            cart.forEach((item, index) => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <h3>${item.title}</h3>
+                    <p>${item.price}€</p>
+                    <div class="quantity-controls">
+                        <button onclick="changeQuantity(${index}, -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="changeQuantity(${index}, 1)">+</button>
+                    </div>
+                    <p class="cart-item-subtotal">${item.subtotal}€</p>
+                    <div class="cart-item-actions">
+                        <button class="edit-item" onclick="editCartItem(${index})">Modifier</button>
+                        <button class="remove-item" onclick="removeCartItem(${index})">Supprimer</button>
+                    </div>
+                `;
+                cartItems.appendChild(cartItem);
+            });
+            document.getElementById('cart-total').textContent = total;
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        function changeQuantity(index, delta) {
+            const item = cart[index];
+            const newQuantity = item.quantity + delta;
+            if (newQuantity > 0) {
+                item.quantity = newQuantity;
+                item.subtotal = item.price * newQuantity;
+                total += item.price * delta;
+            } else {
+                total -= item.subtotal;
+                cart.splice(index, 1);
+            }
+            updateCart();
+        }
+
+        function removeCartItem(index) {
+            const item = cart[index];
+            total -= item.subtotal;
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function editCartItem(index) {
+            const item = cart[index];
+            if (confirm(`Voulez-vous modifier l'article "${item.title}" ? Vous serez redirigé vers l'accueil pour choisir un nouvel article.`)) {
+                total -= item.subtotal;
+                cart.splice(index, 1);
+                updateCart();
+                localStorage.setItem('editingItemIndex', index);
+                window.location.href = 'accueil.html';
+            }
+        }
+
+        function replaceCartItem(newTitle, newPrice) {
+            const editingIndex = parseInt(localStorage.getItem('editingItemIndex'));
+            if (!isNaN(editingIndex)) {
+                cart.splice(editingIndex, 0, {
+                    title: newTitle,
+                    price: newPrice,
+                    quantity: 1,
+                    subtotal: newPrice
+                });
+                total += newPrice;
+                localStorage.removeItem('editingItemIndex');
+                updateCart();
+            }
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Votre panier est vide. Ajoutez des articles avant de finaliser la commande.');
+                return;
+            }
+
+            if (confirm('Êtes-vous sûr de vouloir finaliser votre commande ?')) {
+                alert('Merci pour votre commande ! Nous vous contacterons rapidement pour finaliser la transaction.');
+                cart = [];
+                total = 0;
+                updateCart();
+            }
+        }
+
+        function clearCart() {
+            if (confirm('Êtes-vous sûr de vouloir vider votre panier ?')) {
+                cart = [];
+                total = 0;
+                updateCart();
+                alert('Votre panier a été vidé.');
+            }
+        }
+
+        window.addEventListener('load', updateCart);
+    </script>
+</body>
+</html>

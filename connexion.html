@@ -1,0 +1,432 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Records - Connexion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+ 
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+ 
+        header {
+            background: linear-gradient(45deg, #2c1810, #1a0f0a);
+            color: #f5f5f5;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+ 
+        header::before {
+            content: '♪';
+            position: absolute;
+            font-size: 10rem;
+            opacity: 0.05;
+            top: -30px;
+            left: -30px;
+            animation: rotate 15s linear infinite;
+        }
+ 
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: pulse 3s infinite;
+            letter-spacing: 2px;
+        }
+ 
+        nav {
+            background: linear-gradient(45deg, #1a0f0a, #0d0707);
+            padding: 1.2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+ 
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+        }
+ 
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 0.7rem 2rem;
+            border-radius: 3px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+ 
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: 0.5s;
+        }
+ 
+        nav a:hover::before {
+            left: 100%;
+        }
+ 
+        nav a:hover {
+            background-color: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .login-container {
+            max-width: 600px;
+            margin: 4rem auto;
+            padding: 3rem;
+            background: #252525;
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            margin-top: 120px;
+        }
+
+        .login-container::before {
+            content: '♫';
+            position: absolute;
+            top: -25px;
+            right: -25px;
+            font-size: 6rem;
+            opacity: 0.05;
+            transform: rotate(-45deg);
+        }
+
+        .login-container h2 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 2rem;
+            color: #d4af37;
+            font-size: 2.2em;
+            text-align: center;
+        }
+
+        .login-container h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 2px;
+            background: #d4af37;
+            margin: 20px auto;
+            animation: expandWidth 1.2s ease-out;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #e0e0e0;
+            font-weight: 300;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 0 8px rgba(212,175,55,0.3);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #d4af37, #b4941f);
+            color: #1a1a1a;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            width: 100%;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 1em;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #b4941f, #d4af37);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212,175,55,0.3);
+        }
+        
+        .submit-btn:disabled {
+            background: #444;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .alt-link {
+            text-align: center;
+            margin-top: 2rem;
+            color: #bbb;
+        }
+
+        .alt-link a {
+            color: #d4af37;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .alt-link a:hover {
+            text-decoration: underline;
+            color: #e0c357;
+        }
+        
+        .error-message {
+            color: #f44336;
+            margin-top: 0.5rem;
+            font-size: 0.9em;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 5px;
+            color: white;
+            z-index: 1000;
+            font-weight: 500;
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .toast.success {
+            background-color: #4CAF50;
+        }
+
+        .toast.error {
+            background-color: #f44336;
+        }
+
+        .toast.info {
+            background-color: #2196F3;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            background: linear-gradient(45deg, #1a0f0a, #0d0707);
+            color: #bbb;
+            text-align: center;
+            padding: 4rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 80px; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Cool Records</h1>
+        <p>Collection exclusive de vinyles d'exception</p>
+    </header>
+ 
+    <nav>
+        <ul>
+            <li><a href="accueil.html">Accueil</a></li>
+            <li><a href="catalogue.html">Collection</a></li>
+            <li><a href="nouveautés.html">Nouveautés</a></li>
+            <li><a href="panier.html">Panier</a></li>
+            <li><a href="connexion.html">Connexion</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="login-container">
+        <h2>Se connecter</h2>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" id="username" name="username" required placeholder="Entrez votre nom d'utilisateur">
+                <div class="error-message" id="username-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" required placeholder="Entrez votre mot de passe">
+                <div class="error-message" id="password-error"></div>
+            </div>
+            <button type="submit" class="submit-btn" id="login-button">Se connecter</button>
+        </form>
+        <div class="alt-link">
+            <p>Vous n'avez pas de compte ? <a href="inscription.html">S'inscrire</a></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Cool Records - L'excellence du vinyle</p>
+        <p>Contact: collection@coolrecords.fr | +33 (0)1 23 45 67 89</p>
+        <p>17 rue des Vinyles, 75001 Paris</p>
+    </footer>
+
+    <script>
+        // URL de base de l'API
+        const API_BASE_URL = '';
+        
+        // Récupérer le formulaire de connexion
+        const loginForm = document.getElementById('login-form');
+        const loginButton = document.getElementById('login-button');
+        
+        // Gestionnaire d'événement de soumission du formulaire
+        loginForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            // Réinitialiser les messages d'erreur
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            
+            // Récupérer les valeurs du formulaire
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            
+            // Vérifier si les champs sont remplis
+            let hasError = false;
+            
+            if (!username) {
+                document.getElementById('username-error').textContent = 'Veuillez entrer votre nom d\'utilisateur';
+                hasError = true;
+            }
+            
+            if (!password) {
+                document.getElementById('password-error').textContent = 'Veuillez entrer votre mot de passe';
+                hasError = true;
+            }
+            
+            if (hasError) {
+                return;
+            }
+            
+            try {
+                // Désactiver le bouton pendant la requête
+                loginButton.disabled = true;
+                loginButton.textContent = 'Connexion en cours...';
+                
+                // Envoyer la requête à l'API
+                const response = await fetch(`${API_BASE_URL}/?action=login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    // Connexion réussie
+                    showToast('Connexion réussie! Redirection...', 'success');
+                    
+                    // Rediriger vers la page d'accueil après un court délai
+                    setTimeout(() => {
+                        window.location.href = 'accueil.html';
+                    }, 2000);
+                } else {
+                    // Afficher le message d'erreur
+                    showToast(data.message || 'Identifiants incorrects', 'error');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                showToast('Erreur lors de la connexion', 'error');
+            } finally {
+                // Réactiver le bouton
+                loginButton.disabled = false;
+                loginButton.textContent = 'Se connecter';
+            }
+        });
+        
+        // Fonction pour afficher un message temporaire
+        function showToast(message, type = 'info') {
+            // Créer un élément toast s'il n'existe pas déjà
+            let toast = document.getElementById('toast');
+            
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'toast';
+                document.body.appendChild(toast);
+            }
+            
+            // Définir la classe en fonction du type
+            toast.className = `toast ${type}`;
+            
+            // Définir le message
+            toast.textContent = message;
+            
+            // Afficher le toast
+            toast.style.display = 'block';
+            
+            // Masquer le toast après 3 secondes
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html> 
