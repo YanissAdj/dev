@@ -22,6 +22,7 @@
             <li><a href="collection.html">Collection</a></li>
             <li><a href="nouveautes.html">Nouveautés</a></li>
             <li><a href="panier.html">Panier</a></li>
+            <li><a href="wishlist.html">Favoris <span id="wishlist-count">0</span></a></li>
             <li><a href="connexion.html">Connexion</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
@@ -40,6 +41,7 @@
                 <h2>Notre Sélection</h2>
                 <div class="product-grid">
                     <div class="product-card">
+                        <div class="wishlist-icon" data-title="Led Zeppelin IV" onclick="toggleWishlist('Led Zeppelin IV', 245, 'vinyl1.jpg')">♥</div>
                         <img src="vinyl1.jpg" alt="Led Zeppelin IV">
                         <h3>Led Zeppelin IV</h3>
                         <p>Rock Légendaire</p>
@@ -47,6 +49,7 @@
                         <button onclick="addToCart('Led Zeppelin IV', 245)">Réserver</button>
                     </div>
                     <div class="product-card">
+                        <div class="wishlist-icon" data-title="Kind of Blue" onclick="toggleWishlist('Kind of Blue', 335, 'vinyl3.jpg')">♥</div>
                         <img src="vinyl3.jpg" alt="Miles Davis - Kind of Blue">
                         <h3>Kind of Blue</h3>
                         <p>Jazz Intemporel</p>
@@ -54,6 +57,7 @@
                         <button onclick="addToCart('Kind of Blue', 335)">Réserver</button>
                     </div>
                     <div class="product-card">
+                        <div class="wishlist-icon" data-title="What's Going On" onclick="toggleWishlist('What\'s Going On', 250, 'vinyl5.jpg')">♥</div>
                         <img src="vinyl5.jpg" alt="Marvin Gaye">
                         <h3>What's Going On</h3>
                         <p>Soul & Funk</p>
@@ -61,6 +65,7 @@
                         <button onclick="addToCart('What\'s Going On', 250)">Réserver</button>
                     </div>
                     <div class="product-card">
+                        <div class="wishlist-icon" data-title="Mozart Symphonies" onclick="toggleWishlist('Mozart Symphonies', 180, 'vinyl8.jpg')">♥</div>
                         <img src="vinyl8.jpg" alt="Mozart">
                         <h3>Les Symphonies</h3>
                         <p>Classique</p>
