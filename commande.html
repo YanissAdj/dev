@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Records - Commande</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Cool Records</h1>
+        <p>Collection exclusive de vinyles d'exception</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="accueil.html">Accueil</a></li>
+            <li><a href="collection.html">Collection</a></li>
+            <li><a href="nouveautes.html">Nouveautés</a></li>
+            <li><a href="panier.html">Panier</a></li>
+            <li><a href="connexion.html">Connexion</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="checkout-container">
+        <div class="checkout-form">
+            <div class="form-section">
+                <h3>Informations de livraison</h3>
+                <div class="form-group">
+                    <label for="fullName">Nom complet</label>
+                    <input type="text" id="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Téléphone</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Adresse</label>
+                    <input type="text" id="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="postalCode">Code postal</label>
+                    <input type="text" id="postalCode" required>
+                </div>
+                <div class="form-group">
+                    <label for="city">Ville</label>
+                    <input type="text" id="city" required>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Options de livraison</h3>
+                <div class="shipping-options">
+                    <div class="shipping-option" onclick="selectShipping('standard')">
+                        <h4>Livraison standard</h4>
+                        <p>5-7 jours</p>
+                        <p>4.99€</p>
+                    </div>
+                    <div class="shipping-option" onclick="selectShipping('express')">
+                        <h4>Livraison express</h4>
+                        <p>2-3 jours</p>
+                        <p>9.99€</p>
+                    </div>
+                    <div class="shipping-option" onclick="selectShipping('pickup')">
+                        <h4>Point relais</h4>
+                        <p>3-5 jours</p>
+                        <p>2.99€</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="loyalty-section">
+                <h3>Programme de fidélité</h3>
+                <p>Points actuels: <span id="loyaltyPoints">0</span></p>
+                <div class="promo-code">
+                    <input type="text" id="promoCode" placeholder="Code promo">
+                    <button onclick="applyPromoCode()">Appliquer</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-summary">
+            <h3>Récapitulatif de la commande</h3>
+            <div id="orderItems">
+                
+            </div>
+            <div class="order-total">
+                <div class="order-item">
+                    <span>Sous-total</span>
+                    <span id="subtotal">0.00€</span>
+                </div>
+                <div class="order-item">
+                    <span>Livraison</span>
+                    <span id="shipping">0.00€</span>
+                </div>
+                <div class="order-item">
+                    <span>Total</span>
+                    <span id="total">0.00€</span>
+                </div>
+            </div>
+            <button onclick="processOrder()" style="width: 100%; margin-top: 2rem;">Finaliser la commande</button>
+        </div>
+    </div>
+
+    <div class="tracking-section">
+        <h3>Suivi de commande</h3>
+        <div class="tracking-steps">
+            <div class="tracking-step">
+                <div class="step-icon">1</div>
+                <p>Commande confirmée</p>
+            </div>
+            <div class="tracking-step">
+                <div class="step-icon">2</div>
+                <p>En préparation</p>
+            </div>
+            <div class="tracking-step">
+                <div class="step-icon">3</div>
+                <p>En transit</p>
+            </div>
+            <div class="tracking-step">
+                <div class="step-icon">4</div>
+                <p>Livré</p>
+            </div>
+        </div>
+        <div class="tracking-number">
+            <p>Numéro de suivi: <span id="trackingNumber">CR-2024-XXXXX</span></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Cool Records - L'excellence du vinyle</p>
+        <p>Contact: collection@coolrecords.fr | +33 (0)1 23 45 67 89</p>
+        <p>17 rue des Vinyles, 75001 Paris</p>
+    </footer>
+
+    <script>
+        let selectedShipping = null;
+        let shippingCost = 0;
+
+        function selectShipping(method) {
+            selectedShipping = method;
+            document.querySelectorAll('.shipping-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+
+            switch(method) {
+                case 'standard':
+                    shippingCost = 4.99;
+                    break;
+                case 'express':
+                    shippingCost = 9.99;
+                    break;
+                case 'pickup':
+                    shippingCost = 2.99;
+                    break;
+            }
+
+            updateOrderSummary();
+        }
+
+        function applyPromoCode() {
+            const code = document.getElementById('promoCode').value;
+            
+            alert('Code promo appliqué avec succès!');
+            updateOrderSummary();
+        }
+
+        function updateOrderSummary() {
+           
+            const subtotal = calculateSubtotal();
+            document.getElementById('subtotal').textContent = subtotal.toFixed(2) + '€';
+            document.getElementById('shipping').textContent = shippingCost.toFixed(2) + '€';
+            document.getElementById('total').textContent = (subtotal + shippingCost).toFixed(2) + '€';
+        }
+
+        function calculateSubtotal() {
+           
+            return 0; 
+        }
+
+        function processOrder() {
+            if (!selectedShipping) {
+                alert('Veuillez sélectionner une méthode de livraison');
+                return;
+            }
+
+            // Générer un numéro de suivi 
+            const trackingNumber = 'CR-' + new Date().getFullYear() + '-' + Math.random().toString(36).substr(2, 5).toUpperCase();
+            document.getElementById('trackingNumber').textContent = trackingNumber;
+
+            // Mettre à jour les étapes de suivi
+            document.querySelectorAll('.step-icon').forEach((icon, index) => {
+                if (index === 0) {
+                    icon.classList.add('active');
+                }
+            });
+
+            alert('Commande confirmée! Votre numéro de suivi est: ' + trackingNumber);
+        }
+
+
+        updateOrderSummary();
+    </script>
+</body>
+</html> 

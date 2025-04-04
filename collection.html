@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Records - Collection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="search-container">
+            <input type="text" placeholder="Rechercher un vinyle..." onkeyup="searchVinyl(this.value)">
+        </div>
+        <h1>Cool Records</h1>
+        <p>Collection exclusive de vinyles d'exception</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="accueil.html">Accueil</a></li>
+            <li><a href="collection.html">Collection</a></li>
+            <li><a href="nouveautes.html">Nouveautés</a></li>
+            <li><a href="panier.html">Panier</a></li>
+            <li><a href="wishlist.html">Favoris</a></li>
+            <li><a href="connexion.html">Connexion</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="page active">
+        <section class="products">
+            <div class="category">
+                <h2 onclick="showCategory('rock')">Rock Légendaire</h2>
+                <div id="rock" class="product-grid">
+                    <div class="product-card">
+                        <div class="wishlist-icon" data-title="Led Zeppelin IV" onclick="toggleWishlist('Led Zeppelin IV', 245, 'vinyl1.jpg')">♥</div>
+                        <img src="vinyl1.jpg" alt="Led Zeppelin IV - Edition Originale">
+                        <h3>Led Zeppelin IV</h3>
+                        <p>Edition Originale de 1971</p>
+                        <p>État: Excellent - Pressage UK</p>
+                        <p>Prix: 245€</p>
+                        <button onclick="addToCart('Led Zeppelin IV', 245)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="wishlist-icon" data-title="Dark Side of the Moon" onclick="toggleWishlist('Dark Side of the Moon', 155, 'vinyl2.jpg')">♥</div>
+                        <img src="vinyl2.jpg" alt="Pink Floyd - Dark Side of the Moon">
+                        <h3>Dark Side of the Moon</h3>
+                        <p>Réédition Audiophile 180g</p>
+                        <p>État: Neuf sous blister</p>
+                        <p>Prix: 155€</p>
+                        <button onclick="addToCart('Dark Side of the Moon', 155)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="wishlist-icon" data-title="Abbey Road" onclick="toggleWishlist('Abbey Road', 290, 'vinyl9.jpg')">♥</div>
+                        <img src="vinyl9.jpg" alt="The Beatles - Abbey Road">
+                        <h3>Abbey Road</h3>
+                        <p>Pressage Original UK</p>
+                        <p>État: Très bon</p>
+                        <p>Prix: 290€</p>
+                        <button onclick="addToCart('Abbey Road', 290)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="wishlist-icon" data-title="A Night at the Opera" onclick="toggleWishlist('A Night at the Opera', 200, 'vinyl10.jpg')">♥</div>
+                        <img src="vinyl10.jpg" alt="Queen - A Night at the Opera">
+                        <h3>A Night at the Opera</h3>
+                        <p>Edition Deluxe</p>
+                        <p>État: Excellent</p>
+                        <p>Prix: 200€</p>
+                        <button onclick="addToCart('A Night at the Opera', 200)">Réserver</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <h2 onclick="showCategory('jazz')">Jazz Intemporel</h2>
+                <div id="jazz" class="product-grid">
+                    <div class="product-card">
+                        <div class="wishlist-icon" data-title="Kind of Blue" onclick="toggleWishlist('Kind of Blue', 335, 'vinyl3.jpg')">♥</div>
+                        <img src="vinyl3.jpg" alt="Miles Davis - Kind of Blue">
+                        <h3>Kind of Blue</h3>
+                        <p>Pressage Japonais Original</p>
+                        <p>État: Très bon - Obi intact</p>
+                        <p>Prix: 335€</p>
+                        <button onclick="addToCart('Kind of Blue', 335)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="wishlist-icon" data-title="A Love Supreme" onclick="toggleWishlist('A Love Supreme', 440, 'vinyl4.jpg')">♥</div>
+                        <img src="vinyl4.jpg" alt="John Coltrane - A Love Supreme">
+                        <h3>A Love Supreme</h3>
+                        <p>Impulse! Records - Première Presse</p>
+                        <p>État: Collection - Mint</p>
+                        <p>Prix: 440€</p>
+                        <button onclick="addToCart('A Love Supreme', 440)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="wishlist-icon" data-title="Bird" onclick="toggleWishlist('Bird', 380, 'vinyl11.jpg')">♥</div>
+                        <img src="vinyl11.jpg" alt="Charlie Parker - Bird">
+                        <h3>Bird</h3>
+                        <p>Verve Records Original</p>
+                        <p>État: Très bon</p>
+                        <p>Prix: 380€</p>
+                        <button onclick="addToCart('Bird', 380)">Réserver</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <h2 onclick="showCategory('soul')">Soul & Funk Essentiels</h2>
+                <div id="soul" class="product-grid">
+                    <div class="product-card">
+                        <div class="wishlist-icon" data-title="What's Going On" onclick="toggleWishlist('What\'s Going On', 250, 'vinyl5.jpg')">♥</div>
+                        <img src="vinyl5.jpg" alt="Marvin Gaye - What's Going On">
+                        <h3>What's Going On</h3>
+                        <p>Motown Records - 1971</p>
+                        <p>État: Excellent - Pochette d'origine</p>
+                        <p>Prix: 250€</p>
+                        <button onclick="addToCart('What\'s Going On', 250)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="wishlist-icon" data-title="Songs in the Key of Life" onclick="toggleWishlist('Songs in the Key of Life', 238, 'vinyl6.jpg')">♥</div>
+                        <img src="vinyl6.jpg" alt="Stevie Wonder - Songs in the Key of Life">
+                        <h3>Songs in the Key of Life</h3>
+                        <p>Double LP avec Livret Original</p>
+                        <p>État: Très bon - Complet</p>
+                        <p>Prix: 238€</p>
+                        <button onclick="addToCart('Songs in the Key of Life', 238)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="wishlist-icon" data-title="Live at the Apollo" onclick="toggleWishlist('Live at the Apollo', 290, 'vinyl12.jpg')">♥</div>
+                        <img src="vinyl12.jpg" alt="James Brown - Live at the Apollo">
+                        <h3>Live at the Apollo</h3>
+                        <p>King Records Original</p>
+                        <p>État: Excellent</p>
+                        <p>Prix: 290€</p>
+                        <button onclick="addToCart('Live at the Apollo', 290)">Réserver</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <h2 onclick="showCategory('rap')">Rap Légendaire</h2>
+                <div id="rap" class="product-grid">
+                    <div class="product-card">
+                        <div class="wishlist-icon" data-title="Illmatic" onclick="toggleWishlist('Illmatic', 395, 'vinyl14.jpg')">♥</div>
+                        <img src="vinyl14.jpg" alt="Nas - Illmatic">
+                        <h3>Nas - Illmatic</h3>
+                        <p>Columbia Records - 1994</p>
+                        <p>État: Excellent - Première Presse</p>
+                        <p>Prix: 395€</p>
+                        <button onclick="addToCart('Illmatic', 395)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="wishlist-icon" data-title="The Chronic" onclick="toggleWishlist('The Chronic', 450, 'vinyl15.jpg')">♥</div>
+                        <img src="vinyl15.jpg" alt="Dr. Dre - The Chronic">
+                        <h3>Dr. Dre - The Chronic</h3>
+                        <p>Death Row Records Original</p>
+                        <p>État: Très bon</p>
+                        <p>Prix: 450€</p>
+                        <button onclick="addToCart('The Chronic', 450)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="wishlist-icon" data-title="Enter the Wu-Tang" onclick="toggleWishlist('Enter the Wu-Tang', 420, 'vinyl16.jpg')">♥</div>
+                        <img src="vinyl16.jpg" alt="Wu-Tang Clan - Enter the Wu-Tang">
+                        <h3>Enter the Wu-Tang</h3>
+                        <p>RCA Records - Edition Rare</p>
+                        <p>État: Mint</p>
+                        <p>Prix: 420€</p>
+                        <button onclick="addToCart('Enter the Wu-Tang', 420)">Réserver</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <h2 onclick="showCategory('classique')">Classique</h2>
+                <div id="classique" class="product-grid">
+                    <div class="product-card">
+                        <div class="wishlist-icon" data-title="Mozart Symphonies" onclick="toggleWishlist('Mozart Symphonies', 180, 'vinyl8.jpg')">♥</div>
+                        <img src="vinyl8.jpg" alt="Mozart - Les Symphonies">
+                        <h3>Mozart - Les Symphonies</h3>
+                        <p>Deutsche Grammophon</p>
+                        <p>État: Comme neuf</p>
+                        <p>Prix: 180€</p>
+                        <button onclick="addToCart('Mozart Symphonies', 180)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="wishlist-icon" data-title="Beethoven 9ème" onclick="toggleWishlist('Beethoven 9ème', 220, 'vinyl13.jpg')">♥</div>
+                        <img src="vinyl13.jpg" alt="Beethoven - 9ème Symphonie">
+                        <h3>Beethoven - 9ème Symphonie</h3>
+                        <p>Edition Collector</p>
+                        <p>État: Excellent</p>
+                        <p>Prix: 220€</p>
+                        <button onclick="addToCart('Beethoven 9ème', 220)">Réserver</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Cool Records - L'excellence du vinyle</p>
+        <p>Contact: collection@coolrecords.fr | +33 (0)1 23 45 67 89</p>
+        <p>17 rue des Vinyles, 75001 Paris</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

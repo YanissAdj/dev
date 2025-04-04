@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Records - Accueil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="search-container">
+            <input type="text" placeholder="Rechercher un vinyle..." onkeyup="searchVinyl(this.value)">
+        </div>
+        <h1>Cool Records</h1>
+        <p>Collection exclusive de vinyles d'exception</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="accueil.html">Accueil</a></li>
+            <li><a href="collection.html">Collection</a></li>
+            <li><a href="nouveautes.html">Nouveautés</a></li>
+            <li><a href="panier.html">Panier</a></li>
+            <li><a href="connexion.html">Connexion</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="page active">
+        <section class="hero">
+            <div>
+                <h2>L'Art du Vinyle</h2>
+                <p>Une sélection minutieuse des plus beaux vinyles vintage et contemporains</p>
+            </div>
+        </section>
+       
+        <section class="products">
+            <div class="category">
+                <h2>Notre Sélection</h2>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="vinyl1.jpg" alt="Led Zeppelin IV">
+                        <h3>Led Zeppelin IV</h3>
+                        <p>Rock Légendaire</p>
+                        <p>Prix: 245€</p>
+                        <button onclick="addToCart('Led Zeppelin IV', 245)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="vinyl3.jpg" alt="Miles Davis - Kind of Blue">
+                        <h3>Kind of Blue</h3>
+                        <p>Jazz Intemporel</p>
+                        <p>Prix: 335€</p>
+                        <button onclick="addToCart('Kind of Blue', 335)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="vinyl5.jpg" alt="Marvin Gaye">
+                        <h3>What's Going On</h3>
+                        <p>Soul & Funk</p>
+                        <p>Prix: 250€</p>
+                        <button onclick="addToCart('What\'s Going On', 250)">Réserver</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="vinyl8.jpg" alt="Mozart">
+                        <h3>Les Symphonies</h3>
+                        <p>Classique</p>
+                        <p>Prix: 180€</p>
+                        <button onclick="addToCart('Mozart Symphonies', 180)">Réserver</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Cool Records - L'excellence du vinyle</p>
+        <p>Contact: collection@coolrecords.fr | +33 (0)1 23 45 67 89</p>
+        <p>17 rue des Vinyles, 75001 Paris</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
