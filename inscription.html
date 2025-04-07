@@ -288,8 +288,8 @@
     <nav>
         <ul>
             <li><a href="accueil.html">Accueil</a></li>
-            <li><a href="catalogue.html">Collection</a></li>
-            <li><a href="nouveautés.html">Nouveautés</a></li>
+            <li><a href="collection.html">Collection</a></li>
+            <li><a href="nouveautes.html">Nouveautés</a></li>
             <li><a href="panier.html">Panier</a></li>
             <li><a href="connexion.html">Connexion</a></li>
             <li><a href="contact.html">Contact</a></li>
@@ -298,10 +298,20 @@
 
     <div class="login-container">
         <h2>Créer un compte</h2>
-        <form id="register-form">
+        <form id="register-form" action="inscription.php" method="POST">
+            <div class="form-group">
+                <label for="nom">Nom</label>
+                <input type="text" id="nom" name="nom" required placeholder="Entrez votre nom">
+                <div class="error-message" id="nom-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="prenom">Prénom</label>
+                <input type="text" id="prenom" name="prenom" required placeholder="Entrez votre prénom">
+                <div class="error-message" id="prenom-error"></div>
+            </div>
             <div class="form-group">
                 <label for="username">Nom d'utilisateur</label>
-                <input type="text" id="username" name="username" required placeholder="Choisissez un nom d'utilisateur">
+                <input type="text" id="username" name="nom_utilisateur" required placeholder="Choisissez un nom d'utilisateur">
                 <div class="error-message" id="username-error"></div>
             </div>
             <div class="form-group">
@@ -311,7 +321,7 @@
             </div>
             <div class="form-group">
                 <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" required placeholder="Créez un mot de passe">
+                <input type="password" id="password" name="mot_de_passe" required placeholder="Créez un mot de passe">
                 <div class="error-message" id="password-error"></div>
             </div>
             <div class="form-group">
@@ -333,21 +343,20 @@
     </footer>
 
     <script>
-        // URL de base de l'API
-        const API_BASE_URL = '';
-        
         // Récupérer le formulaire d'inscription
         const registerForm = document.getElementById('register-form');
         const registerButton = document.getElementById('register-button');
         
         // Gestionnaire d'événement de soumission du formulaire
-        registerForm.addEventListener('submit', async (event) => {
+        registerForm.addEventListener('submit', function(event) {
             event.preventDefault();
             
             // Réinitialiser les messages d'erreur
             document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
             
             // Récupérer les valeurs du formulaire
+            const nom = document.getElementById('nom').value.trim();
+            const prenom = document.getElementById('prenom').value.trim();
             const username = document.getElementById('username').value.trim();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
@@ -356,6 +365,16 @@
             // Vérifier si les champs sont remplis
             let hasError = false;
             
+            if (!nom) {
+                document.getElementById('nom-error').textContent = 'Veuillez entrer votre nom';
+                hasError = true;
+            }
+            
+            if (!prenom) {
+                document.getElementById('prenom-error').textContent = 'Veuillez entrer votre prénom';
+                hasError = true;
+            }
+
             if (!username) {
                 document.getElementById('username-error').textContent = 'Veuillez choisir un nom d\'utilisateur';
                 hasError = true;
@@ -382,50 +401,21 @@
                 hasError = true;
             }
             
-            if (hasError) {
-                return;
-            }
-            
-            try {
-                // Désactiver le bouton pendant la requête
+            if (!hasError) {
+                // Désactiver le bouton pendant la soumission
                 registerButton.disabled = true;
                 registerButton.textContent = 'Création en cours...';
-                
-                // Envoyer la requête à l'API
-                const response = await fetch(`${API_BASE_URL}/?action=register`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        username: username,
-                        email: email,
-                        password: password,
-                        
-                    })
-                });
-                
-                const data = await response.json();
-                
-                if (response.ok && data.success) {
-                    // Inscription réussie
-                    showToast('Inscription réussie! Vous pouvez maintenant vous connecter.', 'success');
-                    
-                    // Rediriger vers la page de connexion après un court délai
-                    setTimeout(() => {
-                        window.location.href = 'connexion.html';
-                    }, 2000);
-                } else {
-                    // Afficher le message d'erreur
-                    showToast(data.message || 'Erreur lors de l\'inscription', 'error');
-                }
-            } catch (error) {
-                console.error('Erreur:', error);
-                showToast('Erreur lors de l\'inscription', 'error');
-            } finally {
-                // Réactiver le bouton
-                registerButton.disabled = false;
-                registerButton.textContent = 'Créer mon compte';
+
+                // Soumettre le formulaire
+                registerForm.submit();
+
+                // Afficher le message de succès
+                showToast('Inscription réussie ! Vous allez être redirigé...', 'success');
+
+                // Rediriger vers la page de connexion après 2 secondes
+                setTimeout(() => {
+                    window.location.href = 'connexion.html';
+                }, 2000);
             }
         });
         
@@ -437,7 +427,6 @@
         
         // Fonction pour afficher un message temporaire
         function showToast(message, type = 'info') {
-            // Créer un élément toast s'il n'existe pas déjà
             let toast = document.getElementById('toast');
             
             if (!toast) {
@@ -446,20 +435,15 @@
                 document.body.appendChild(toast);
             }
             
-            // Définir la classe en fonction du type
             toast.className = `toast ${type}`;
-            
-            // Définir le message
             toast.textContent = message;
-            
-            // Afficher le toast
             toast.style.display = 'block';
             
-            // Masquer le toast après 3 secondes
             setTimeout(() => {
                 toast.style.display = 'none';
             }, 3000);
         }
     </script>
-</body>
-</html> 
+
+    </body>
+</html>

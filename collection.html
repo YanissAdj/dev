@@ -6,6 +6,45 @@
     <title>Cool Records - Collection</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .quantity-selector button {
+            padding: 5px 10px;
+            border: none;
+            background: #f0f0f0;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .quantity-selector input {
+            width: 50px;
+            text-align: center;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .reserve-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .reserve-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -38,7 +77,12 @@
                         <p>Edition Originale de 1971</p>
                         <p>État: Excellent - Pressage UK</p>
                         <p>Prix: 245€</p>
-                        <button onclick="addToCart('Led Zeppelin IV', 245)">Réserver</button>
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity('qty-rock-1', -1)">-</button>
+                            <input type="number" id="qty-rock-1" value="1" min="1" max="10">
+                            <button onclick="updateQuantity('qty-rock-1', 1)">+</button>
+                        </div>
+                        <button onclick="addToCart('Led Zeppelin IV', 245, 'qty-rock-1')" class="reserve-btn">Réserver</button>
                     </div>
                     <div class="product-card">
                         <img src="vinyl2.jpg" alt="Pink Floyd - Dark Side of the Moon">
@@ -46,7 +90,12 @@
                         <p>Réédition Audiophile 180g</p>
                         <p>État: Neuf sous blister</p>
                         <p>Prix: 155€</p>
-                        <button onclick="addToCart('Dark Side of the Moon', 155)">Réserver</button>
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity('qty-rock-2', -1)">-</button>
+                            <input type="number" id="qty-rock-2" value="1" min="1" max="10">
+                            <button onclick="updateQuantity('qty-rock-2', 1)">+</button>
+                        </div>
+                        <button onclick="addToCart('Dark Side of the Moon', 155, 'qty-rock-2')" class="reserve-btn">Réserver</button>
                     </div>
                     <div class="product-card">
                         <img src="vinyl9.jpg" alt="The Beatles - Abbey Road">
@@ -54,7 +103,12 @@
                         <p>Pressage Original UK</p>
                         <p>État: Très bon</p>
                         <p>Prix: 290€</p>
-                        <button onclick="addToCart('Abbey Road', 290)">Réserver</button>
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity('qty-rock-3', -1)">-</button>
+                            <input type="number" id="qty-rock-3" value="1" min="1" max="10">
+                            <button onclick="updateQuantity('qty-rock-3', 1)">+</button>
+                        </div>
+                        <button onclick="addToCart('Abbey Road', 290, 'qty-rock-3')" class="reserve-btn">Réserver</button>
                     </div>
                     <div class="product-card">
                         <img src="vinyl10.jpg" alt="Queen - A Night at the Opera">
@@ -62,7 +116,12 @@
                         <p>Edition Deluxe</p>
                         <p>État: Excellent</p>
                         <p>Prix: 200€</p>
-                        <button onclick="addToCart('A Night at the Opera', 200)">Réserver</button>
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity('qty-rock-4', -1)">-</button>
+                            <input type="number" id="qty-rock-4" value="1" min="1" max="10">
+                            <button onclick="updateQuantity('qty-rock-4', 1)">+</button>
+                        </div>
+                        <button onclick="addToCart('A Night at the Opera', 200, 'qty-rock-4')" class="reserve-btn">Réserver</button>
                     </div>
                 </div>
             </div>
@@ -76,7 +135,12 @@
                         <p>Pressage Japonais Original</p>
                         <p>État: Très bon - Obi intact</p>
                         <p>Prix: 335€</p>
-                        <button onclick="addToCart('Kind of Blue', 335)">Réserver</button>
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity('qty-jazz-1', -1)">-</button>
+                            <input type="number" id="qty-jazz-1" value="1" min="1" max="10">
+                            <button onclick="updateQuantity('qty-jazz-1', 1)">+</button>
+                        </div>
+                        <button onclick="addToCart('Kind of Blue', 335, 'qty-jazz-1')" class="reserve-btn">Réserver</button>
                     </div>
                     <div class="product-card">
                         <img src="vinyl4.jpg" alt="John Coltrane - A Love Supreme">
@@ -84,7 +148,12 @@
                         <p>Impulse! Records - Première Presse</p>
                         <p>État: Collection - Mint</p>
                         <p>Prix: 440€</p>
-                        <button onclick="addToCart('A Love Supreme', 440)">Réserver</button>
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity('qty-jazz-2', -1)">-</button>
+                            <input type="number" id="qty-jazz-2" value="1" min="1" max="10">
+                            <button onclick="updateQuantity('qty-jazz-2', 1)">+</button>
+                        </div>
+                        <button onclick="addToCart('A Love Supreme', 440, 'qty-jazz-2')" class="reserve-btn">Réserver</button>
                     </div>
                     <div class="product-card">
                         <img src="vinyl11.jpg" alt="Charlie Parker - Bird">
@@ -92,7 +161,12 @@
                         <p>Verve Records Original</p>
                         <p>État: Très bon</p>
                         <p>Prix: 380€</p>
-                        <button onclick="addToCart('Bird', 380)">Réserver</button>
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity('qty-jazz-3', -1)">-</button>
+                            <input type="number" id="qty-jazz-3" value="1" min="1" max="10">
+                            <button onclick="updateQuantity('qty-jazz-3', 1)">+</button>
+                        </div>
+                        <button onclick="addToCart('Bird', 380, 'qty-jazz-3')" class="reserve-btn">Réserver</button>
                     </div>
                 </div>
             </div>
@@ -106,7 +180,12 @@
                         <p>Motown Records - 1971</p>
                         <p>État: Excellent - Pochette d'origine</p>
                         <p>Prix: 250€</p>
-                        <button onclick="addToCart('What\'s Going On', 250)">Réserver</button>
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity('qty-soul-1', -1)">-</button>
+                            <input type="number" id="qty-soul-1" value="1" min="1" max="10">
+                            <button onclick="updateQuantity('qty-soul-1', 1)">+</button>
+                        </div>
+                        <button onclick="addToCart('What\'s Going On', 250, 'qty-soul-1')" class="reserve-btn">Réserver</button>
                     </div>
                     <div class="product-card">
                         <img src="vinyl6.jpg" alt="Stevie Wonder - Songs in the Key of Life">
@@ -114,7 +193,12 @@
                         <p>Double LP avec Livret Original</p>
                         <p>État: Très bon - Complet</p>
                         <p>Prix: 238€</p>
-                        <button onclick="addToCart('Songs in the Key of Life', 238)">Réserver</button>
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity('qty-soul-2', -1)">-</button>
+                            <input type="number" id="qty-soul-2" value="1" min="1" max="10">
+                            <button onclick="updateQuantity('qty-soul-2', 1)">+</button>
+                        </div>
+                        <button onclick="addToCart('Songs in the Key of Life', 238, 'qty-soul-2')" class="reserve-btn">Réserver</button>
                     </div>
                     <div class="product-card">
                         <img src="vinyl12.jpg" alt="James Brown - Live at the Apollo">
@@ -122,7 +206,12 @@
                         <p>King Records Original</p>
                         <p>État: Excellent</p>
                         <p>Prix: 290€</p>
-                        <button onclick="addToCart('Live at the Apollo', 290)">Réserver</button>
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity('qty-soul-3', -1)">-</button>
+                            <input type="number" id="qty-soul-3" value="1" min="1" max="10">
+                            <button onclick="updateQuantity('qty-soul-3', 1)">+</button>
+                        </div>
+                        <button onclick="addToCart('Live at the Apollo', 290, 'qty-soul-3')" class="reserve-btn">Réserver</button>
                     </div>
                 </div>
             </div>
@@ -136,7 +225,12 @@
                         <p>Columbia Records - 1994</p>
                         <p>État: Excellent - Première Presse</p>
                         <p>Prix: 395€</p>
-                        <button onclick="addToCart('Illmatic', 395)">Réserver</button>
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity('qty-rap-1', -1)">-</button>
+                            <input type="number" id="qty-rap-1" value="1" min="1" max="10">
+                            <button onclick="updateQuantity('qty-rap-1', 1)">+</button>
+                        </div>
+                        <button onclick="addToCart('Illmatic', 395, 'qty-rap-1')" class="reserve-btn">Réserver</button>
                     </div>
                     <div class="product-card">
                         <img src="vinyl15.jpg" alt="Dr. Dre - The Chronic">
@@ -144,7 +238,12 @@
                         <p>Death Row Records Original</p>
                         <p>État: Très bon</p>
                         <p>Prix: 450€</p>
-                        <button onclick="addToCart('The Chronic', 450)">Réserver</button>
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity('qty-rap-2', -1)">-</button>
+                            <input type="number" id="qty-rap-2" value="1" min="1" max="10">
+                            <button onclick="updateQuantity('qty-rap-2', 1)">+</button>
+                        </div>
+                        <button onclick="addToCart('The Chronic', 450, 'qty-rap-2')" class="reserve-btn">Réserver</button>
                     </div>
                     <div class="product-card">
                         <img src="vinyl16.jpg" alt="Wu-Tang Clan - Enter the Wu-Tang">
@@ -152,7 +251,12 @@
                         <p>RCA Records - Edition Rare</p>
                         <p>État: Mint</p>
                         <p>Prix: 420€</p>
-                        <button onclick="addToCart('Enter the Wu-Tang', 420)">Réserver</button>
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity('qty-rap-3', -1)">-</button>
+                            <input type="number" id="qty-rap-3" value="1" min="1" max="10">
+                            <button onclick="updateQuantity('qty-rap-3', 1)">+</button>
+                        </div>
+                        <button onclick="addToCart('Enter the Wu-Tang', 420, 'qty-rap-3')" class="reserve-btn">Réserver</button>
                     </div>
                 </div>
             </div>
@@ -166,7 +270,12 @@
                         <p>Deutsche Grammophon</p>
                         <p>État: Comme neuf</p>
                         <p>Prix: 180€</p>
-                        <button onclick="addToCart('Mozart Symphonies', 180)">Réserver</button>
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity('qty-classique-1', -1)">-</button>
+                            <input type="number" id="qty-classique-1" value="1" min="1" max="10">
+                            <button onclick="updateQuantity('qty-classique-1', 1)">+</button>
+                        </div>
+                        <button onclick="addToCart('Mozart Symphonies', 180, 'qty-classique-1')" class="reserve-btn">Réserver</button>
                     </div>
                     <div class="product-card">
                         <img src="vinyl13.jpg" alt="Beethoven - 9ème Symphonie">
@@ -174,7 +283,12 @@
                         <p>Edition Collector</p>
                         <p>État: Excellent</p>
                         <p>Prix: 220€</p>
-                        <button onclick="addToCart('Beethoven 9ème', 220)">Réserver</button>
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity('qty-classique-2', -1)">-</button>
+                            <input type="number" id="qty-classique-2" value="1" min="1" max="10">
+                            <button onclick="updateQuantity('qty-classique-2', 1)">+</button>
+                        </div>
+                        <button onclick="addToCart('Beethoven 9ème', 220, 'qty-classique-2')" class="reserve-btn">Réserver</button>
                     </div>
                 </div>
             </div>
@@ -185,8 +299,15 @@
         <p>&copy; 2025 Cool Records - L'excellence du vinyle</p>
         <p>Contact: collection@coolrecords.fr | +33 (0)1 23 45 67 89</p>
         <p>17 rue des Vinyles, 75001 Paris</p>
+        <div class="legal-links">
+            <a href="mentions-legales.html">Mentions Légales</a> |
+            <a href="mentions-legales.html#privacy">Politique de Confidentialité</a> |
+            <a href="mentions-legales.html#cookies">Gestion des Cookies</a>
+        </div>
     </footer>
 
+    
     <script src="script.js"></script>
+    <script src="cookie-banner.js"></script>
 </body>
 </html> 

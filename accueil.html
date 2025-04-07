@@ -44,28 +44,48 @@
                         <h3>Led Zeppelin IV</h3>
                         <p>Rock Légendaire</p>
                         <p>Prix: 245€</p>
-                        <button onclick="addToCart('Led Zeppelin IV', 245)">Réserver</button>
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity('qty-1', -1)">-</button>
+                            <input type="number" id="qty-1" value="1" min="1" max="10">
+                            <button onclick="updateQuantity('qty-1', 1)">+</button>
+                        </div>
+                        <button onclick="addToCart('Led Zeppelin IV', 245, 'qty-1')" class="reserve-btn">Réserver</button>
                     </div>
                     <div class="product-card">
                         <img src="vinyl3.jpg" alt="Miles Davis - Kind of Blue">
                         <h3>Kind of Blue</h3>
                         <p>Jazz Intemporel</p>
                         <p>Prix: 335€</p>
-                        <button onclick="addToCart('Kind of Blue', 335)">Réserver</button>
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity('qty-2', -1)">-</button>
+                            <input type="number" id="qty-2" value="1" min="1" max="10">
+                            <button onclick="updateQuantity('qty-2', 1)">+</button>
+                        </div>
+                        <button onclick="addToCart('Kind of Blue', 335, 'qty-2')" class="reserve-btn">Réserver</button>
                     </div>
                     <div class="product-card">
                         <img src="vinyl5.jpg" alt="Marvin Gaye">
                         <h3>What's Going On</h3>
                         <p>Soul & Funk</p>
                         <p>Prix: 250€</p>
-                        <button onclick="addToCart('What\'s Going On', 250)">Réserver</button>
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity('qty-3', -1)">-</button>
+                            <input type="number" id="qty-3" value="1" min="1" max="10">
+                            <button onclick="updateQuantity('qty-3', 1)">+</button>
+                        </div>
+                        <button onclick="addToCart('What\'s Going On', 250, 'qty-3')" class="reserve-btn">Réserver</button>
                     </div>
                     <div class="product-card">
                         <img src="vinyl8.jpg" alt="Mozart">
                         <h3>Les Symphonies</h3>
                         <p>Classique</p>
                         <p>Prix: 180€</p>
-                        <button onclick="addToCart('Mozart Symphonies', 180)">Réserver</button>
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity('qty-4', -1)">-</button>
+                            <input type="number" id="qty-4" value="1" min="1" max="10">
+                            <button onclick="updateQuantity('qty-4', 1)">+</button>
+                        </div>
+                        <button onclick="addToCart('Mozart Symphonies', 180, 'qty-4')" class="reserve-btn">Réserver</button>
                     </div>
                 </div>
             </div>
@@ -76,8 +96,14 @@
         <p>&copy; 2025 Cool Records - L'excellence du vinyle</p>
         <p>Contact: collection@coolrecords.fr | +33 (0)1 23 45 67 89</p>
         <p>17 rue des Vinyles, 75001 Paris</p>
+        <div class="legal-links">
+            <a href="mentions-legales.html">Mentions Légales</a> |
+            <a href="mentions-legales.html#privacy">Politique de Confidentialité</a> |
+            <a href="mentions-legales.html#cookies">Gestion des Cookies</a>
+        </div>
     </footer>
 
     <script src="script.js"></script>
+    <script src="cookie-banner.js"></script>
 </body>
-</html> 
+</html>

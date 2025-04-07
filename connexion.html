@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -291,8 +290,8 @@
     <nav>
         <ul>
             <li><a href="accueil.html">Accueil</a></li>
-            <li><a href="catalogue.html">Collection</a></li>
-            <li><a href="nouveautés.html">Nouveautés</a></li>
+            <li><a href="collection.html">Collection</a></li>
+            <li><a href="nouveautes.html">Nouveautés</a></li>
             <li><a href="panier.html">Panier</a></li>
             <li><a href="connexion.html">Connexion</a></li>
             <li><a href="contact.html">Contact</a></li>
@@ -301,15 +300,15 @@
 
     <div class="login-container">
         <h2>Se connecter</h2>
-        <form id="login-form">
+        <form id="login-form" action="connexion.php" method="POST">
             <div class="form-group">
                 <label for="username">Nom d'utilisateur</label>
-                <input type="text" id="username" name="username" required placeholder="Entrez votre nom d'utilisateur">
+                <input type="text" id="username" name="nom_utilisateur" required placeholder="Entrez votre nom d'utilisateur">
                 <div class="error-message" id="username-error"></div>
             </div>
             <div class="form-group">
                 <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" required placeholder="Entrez votre mot de passe">
+                <input type="password" id="password" name="mot_de_passe" required placeholder="Entrez votre mot de passe">
                 <div class="error-message" id="password-error"></div>
             </div>
             <button type="submit" class="submit-btn" id="login-button">Se connecter</button>
@@ -326,85 +325,8 @@
     </footer>
 
     <script>
-        // URL de base de l'API
-        const API_BASE_URL = '';
-        
-        // Récupérer le formulaire de connexion
-        const loginForm = document.getElementById('login-form');
-        const loginButton = document.getElementById('login-button');
-        
-        // Gestionnaire d'événement de soumission du formulaire
-        loginForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            
-            // Réinitialiser les messages d'erreur
-            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
-            
-            // Récupérer les valeurs du formulaire
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
-            
-            // Vérifier si les champs sont remplis
-            let hasError = false;
-            
-            if (!username) {
-                document.getElementById('username-error').textContent = 'Veuillez entrer votre nom d\'utilisateur';
-                hasError = true;
-            }
-            
-            if (!password) {
-                document.getElementById('password-error').textContent = 'Veuillez entrer votre mot de passe';
-                hasError = true;
-            }
-            
-            if (hasError) {
-                return;
-            }
-            
-            try {
-                // Désactiver le bouton pendant la requête
-                loginButton.disabled = true;
-                loginButton.textContent = 'Connexion en cours...';
-                
-                // Envoyer la requête à l'API
-                const response = await fetch(`${API_BASE_URL}/?action=login`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        username: username,
-                        password: password
-                    })
-                });
-                
-                const data = await response.json();
-                
-                if (response.ok && data.success) {
-                    // Connexion réussie
-                    showToast('Connexion réussie! Redirection...', 'success');
-                    
-                    // Rediriger vers la page d'accueil après un court délai
-                    setTimeout(() => {
-                        window.location.href = 'accueil.html';
-                    }, 2000);
-                } else {
-                    // Afficher le message d'erreur
-                    showToast(data.message || 'Identifiants incorrects', 'error');
-                }
-            } catch (error) {
-                console.error('Erreur:', error);
-                showToast('Erreur lors de la connexion', 'error');
-            } finally {
-                // Réactiver le bouton
-                loginButton.disabled = false;
-                loginButton.textContent = 'Se connecter';
-            }
-        });
-        
         // Fonction pour afficher un message temporaire
         function showToast(message, type = 'info') {
-            // Créer un élément toast s'il n'existe pas déjà
             let toast = document.getElementById('toast');
             
             if (!toast) {
@@ -413,20 +335,90 @@
                 document.body.appendChild(toast);
             }
             
-            // Définir la classe en fonction du type
             toast.className = `toast ${type}`;
-            
-            // Définir le message
             toast.textContent = message;
-            
-            // Afficher le toast
             toast.style.display = 'block';
             
-            // Masquer le toast après 3 secondes
             setTimeout(() => {
                 toast.style.display = 'none';
             }, 3000);
         }
+
+        // Récupérer le formulaire de connexion
+        const loginForm = document.getElementById('login-form');
+        const loginButton = document.getElementById('login-button');
+
+        // Gestionnaire d'événement de soumission du formulaire
+        loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        // Réinitialiser les messages d'erreur
+        document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+
+        // Récupérer les valeurs du formulaire
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+
+        // Vérifier si les champs sont remplis
+        let hasError = false;
+
+        if (!username) {
+        document.getElementById('username-error').textContent = 'Veuillez entrer votre nom d\'utilisateur';
+        hasError = true;
+        }
+
+        if (!password) {
+        document.getElementById('password-error').textContent = 'Veuillez entrer votre mot de passe';
+        hasError = true;
+        }
+
+        if (hasError) {
+        return;
+        }
+
+        try {
+            // Désactiver le bouton pendant la requête
+            loginButton.disabled = true;
+            loginButton.textContent = 'Connexion en cours...';
+    
+            // Créer un objet FormData avec les données du formulaire
+            const formData = new FormData(loginForm);
+    
+            // Envoyer la requête au PHP avec l'en-tête X-Requested-With pour indiquer AJAX
+            const response = await fetch('connexion.php', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                // Important : inclure les cookies dans la requête
+                credentials: 'same-origin'
+            });
+    
+            if (response.ok) {
+                // Connexion réussie
+                showToast('Connexion réussie!', 'success');
+        
+                // Recharger la page après un court délai pour que les sessions prennent effet
+                setTimeout(() => {
+                    window.location.href = 'accueil.html';
+                }, 1500);
+            } else {
+                // Afficher le message d'erreur
+                const errorText = await response.text();
+                showToast(errorText || 'Identifiants incorrects', 'error');
+            }
+        }  catch (error) {
+            console.error('Erreur:', error);
+            showToast('Erreur lors de la connexion au serveur', 'error');
+        } finally {
+            // Réactiver le bouton
+            loginButton.disabled = false;
+            loginButton.textContent = 'Se connecter';
+        }
+});
+
+
     </script>
 </body>
-</html> 
+</html>
