@@ -32,7 +32,7 @@ function updateQuantity(inputId, change) {
     input.value = value;
 }
 
-// Fonction pour ajouter au panier
+
 function addToCart(productName, price, qtyInputId) {
     const qtyInput = document.getElementById(qtyInputId);
     if (!qtyInput) return;
